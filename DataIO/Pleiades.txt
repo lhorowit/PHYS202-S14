@@ -2,7 +2,7 @@
 #  Image file: http://imgsrc.hubblesite.org/hu/db/images/hs-2004-20-a-large_web.jpg
 #  Applied threshold: 600
 #  Algorithm used: fill2                 
-#  Processing time: 0.130040 (s)
+#  Processing time: 0.127656 (s)
 #  Star count: 119
 #  Location (x,y) and max luminance:
 # 
