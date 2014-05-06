@@ -1,37 +1,31 @@
+
 class Blob(object):
     
-    def __init__(self, blob_list, x_list, y_list, mass, distance, centerofmass):
-        self.mass = mass()
-        self.distance = distanceTo(blob)
-        self.centerofmass = centerofmass()
-        self.x_list = []
-        self.y_list = []
-        self.blob_list = [self.x_list, self.y_list]
+    def __init__(self):
+        self.pixels = []
         
-    def add(i,j):
-        self.x_list.append(i)
-        self.y_list.append(j)
+    def add(self,i,j):
+        self.pixels.append((i,j))
         
-               
-    def mass():
-        return len(self.x_list) 
+    def mass(self):
+        return len(self.pixels) 
         
-    def centerofmass():
-        mean_x = np.mean(x_list)
-        mean_y = np.mean(y_list)
-        mean_x1 = "%.4f" % mean_x 
-        mean_y1 = "%.4f" % mean_y
-        return (mean_x1, mean_y1)
+    def centerofmass(self):
+        sumX = 0
+        sumY = 0
+        for pixel in self.pixels:
+            sumX += pixel[0]
+            sumY += pixel[1]
+            avg = (sumX/len(self.pixels), sumY/len(self.pixels))
+        return avg
+            
         
     def distanceTo(blob):
-        return ((blob.np.mean(x_list) - self.np.mean(x_list))**2 + (blob.np.mean(y_list) - self.np.mean(y_list))**2 )**.5    
+        D = ((self.centerofmass[0] - blob.centerofmass[0])**2 + (self.centerofmass[1] - blob.centerofmass[1])**2)**.5
+        return round(D, 4)
+    
     
 def BlobFinder(picture, tau):
-    """loops over the pixels in the loaded image, 
-    replacing the RGB values of each with either 
-    black or white depending on whether its total 
-    luminance is above or below some threshold tau 
-    passed in by the user"""
     black = (0, 0, 0)
     white = (255,255,255)
     xsize, ysize = picture.size
@@ -49,11 +43,6 @@ def BlobFinder(picture, tau):
                 
                 
 def Fill(picture):
-    """keep a list of pixels that need to be looked at, 
-    but haven't yet been filled in - a list of the (x,y) 
-    coordinates of pixels that are neighbors of ones we have 
-    already examined.  Keep looping until there's nothing 
-    left in this list"""
     queue = [(0,0)]
     xsize, ysize = picture.size
     while queue:
@@ -75,17 +64,12 @@ def Fill(picture):
                 
                 
 def countBeads(picture, P):
-    """scan the image top to bottom and left to right using a nested loop.
-    when non-black pixel is found, increment the count, then call the fill
-    function to fill in all the pixels connected to that one.  
-    
-    Return the count"""
     xsize, ysize = picture.size
     temp = picture.load()
     result = 0
     for x in range(xsize):
         for y in range(ysize):
-            if self.mass():
+            if self.mass() >= P:
                 result += 1
                 Fill(picture)
     return result
